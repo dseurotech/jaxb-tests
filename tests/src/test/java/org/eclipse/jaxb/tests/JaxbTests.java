@@ -1,12 +1,16 @@
-package com.eurotech.jaxb.tests;
+package org.eclipse.jaxb.tests;
 
-import com.eurotech.jaxb.BaseInfo;
-import com.eurotech.jaxb.InternalExtension;
+
 import com.eurotech.jaxb.leaf.LeafExtension;
-import com.eurotech.jaxb.node.IntermediateExtension;
+import org.eclipse.jaxb.BaseInfo;
+import org.eclipse.jaxb.InternalExtension;
+import org.eclipse.jaxb.node.IntermediateExtension;
+import org.eclipse.persistence.jaxb.JAXBContextFactory;
+import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +18,14 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class JaxbTests {
 
@@ -27,10 +35,26 @@ public class JaxbTests {
 
     private final Logger logger = LoggerFactory.getLogger(JaxbTests.class);
 
+    final Class<?>[] loadClasses(String... packageName) {
+        final Reflections reflections = new Reflections(packageName);
+        final Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(XmlRootElement.class);
+        return annotated.toArray(new Class[annotated.size()]);
+    }
 
     @Before
     public void setUp() throws JAXBException {
-        final JAXBContext jc = JAXBContext.newInstance(Wrapper.class, BaseInfo.class, InternalExtension.class, InternalExtension.class, LeafExtension.class);
+//        final JAXBContext jc = JAXBContext.newInstance(
+//                Wrapper.class,
+//                BaseInfo.class,
+//                InternalExtension.class,
+//                InternalExtension.class,
+//                LeafExtension.class);
+        final Map<String, Object> properties = new HashMap<>(1);
+        properties.put(MarshallerProperties.JSON_WRAPPER_AS_ARRAY_NAME, true);
+        final JAXBContext jc = JAXBContextFactory.createContext(
+                loadClasses("com.eurotech.jaxb", "org.eclipse"),
+                properties);
+
         logger.info("Using JAXB implementation:\n\t - {}", jc.getClass());
         this.marshaller = jc.createMarshaller();
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -74,4 +98,6 @@ public class JaxbTests {
             throw new RuntimeException(e);
         }
     }
+
+
 }

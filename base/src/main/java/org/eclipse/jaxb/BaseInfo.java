@@ -1,6 +1,7 @@
-package com.eurotech.jaxb;
+package org.eclipse.jaxb;
 
 //import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorNode;
+
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

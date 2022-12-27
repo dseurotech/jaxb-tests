@@ -1,6 +1,6 @@
-package com.eurotech.jaxb.node;
+package org.eclipse.jaxb.node;
 
-import com.eurotech.jaxb.BaseInfo;
+import org.eclipse.jaxb.BaseInfo;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

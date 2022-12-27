@@ -1,6 +1,6 @@
 package com.eurotech.jaxb.leaf;
 
-import com.eurotech.jaxb.node.IntermediateExtension;
+import org.eclipse.jaxb.node.IntermediateExtension;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

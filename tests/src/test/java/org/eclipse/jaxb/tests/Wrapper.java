@@ -1,8 +1,9 @@
-package com.eurotech.jaxb.tests;
+package org.eclipse.jaxb.tests;
 
-import com.eurotech.jaxb.BaseInfo;
+import org.eclipse.jaxb.BaseInfo;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
 
 @XmlRootElement(name = "wrapper")
 public class Wrapper {

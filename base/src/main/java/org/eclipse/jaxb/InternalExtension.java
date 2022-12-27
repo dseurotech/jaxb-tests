@@ -1,6 +1,7 @@
-package com.eurotech.jaxb;
+package org.eclipse.jaxb;
 
 //import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorValue;
+
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
